@@ -1,0 +1,106 @@
+import java.util.Scanner;
+
+public class ATMInterface {
+    private static Scanner scanner = new Scanner(System.in);
+    private static BankAccount currentAccount;
+
+    public static void main(String[] args) {
+        showWelcomeScreen();
+
+        int option;
+        do {
+            showMainMenu();
+            option = getUserChoice();
+            executeOption(option);
+        } while (option != 4);
+
+        System.out.println("Thank you for using the ATM. Goodbye!");
+    }
+
+    private static void showWelcomeScreen() {
+        System.out.println("Welcome to the ATM!");
+    }
+
+    private static void showMainMenu() {
+        System.out.println("\nMain Menu:");
+        System.out.println("1. Create Account");
+        System.out.println("2. Login");
+        System.out.println("3. View Balance");
+        System.out.println("4. Exit");
+    }
+
+    private static int getUserChoice() {
+        System.out.print("Enter your choice: ");
+        return scanner.nextInt();
+    }
+
+    private static void executeOption(int option) {
+        switch (option) {
+            case 1:
+                createAccount();
+                break;
+            case 2:
+                login();
+                break;
+            case 3:
+                viewBalance();
+                break;
+            case 4:
+                // Exit
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+                break;
+        }
+    }
+
+    private static void createAccount() {
+        System.out.println("Creating a new account...");
+
+        // Get user input for account details (e.g., account number, PIN, initial balance)
+
+        // Create a new BankAccount instance using the provided details
+
+        // Store the created account in the 'currentAccount' variable
+
+        System.out.println("Account created successfully!");
+    }
+
+    private static void login() {
+        System.out.println("Login to your account...");
+
+        // Get user input for account number and PIN
+
+        // Check if the provided account number and PIN match the stored account details
+
+        // If the login is successful, store the logged-in account in the 'currentAccount' variable
+
+        System.out.println("Login successful!");
+    }
+
+    private static void viewBalance() {
+        if (currentAccount == null) {
+            System.out.println("You must log in first.");
+        } else {
+            System.out.println("Current balance: " + currentAccount.getBalance());
+        }
+    }
+
+    // BankAccount class represents a bank account with account number, PIN, and balance
+
+    private static class BankAccount {
+        private String accountNumber;
+        private String pin;
+        private double balance;
+
+        public BankAccount(String accountNumber, String pin, double balance) {
+            this.accountNumber = accountNumber;
+            this.pin = pin;
+            this.balance = balance;
+        }
+
+        public double getBalance() {
+            return balance;
+        }
+    }
+}
