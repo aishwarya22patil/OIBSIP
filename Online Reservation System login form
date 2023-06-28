@@ -1,0 +1,55 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class ReservationSystem {
+    private Map<String, String> users;
+
+    public ReservationSystem() {
+        users = new HashMap<>();
+        // Adding some sample users for demonstration
+        users.put("user1", "password1");
+        users.put("user2", "password2");
+        users.put("user3", "password3");
+    }
+
+    public boolean login(String username, String password) {
+        if (users.containsKey(username) && users.get(username).equals(password)) {
+            System.out.println("Login successful!");
+            return true;
+        } else {
+            System.out.println("Invalid username or password. Please try again.");
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        ReservationSystem reservationSystem = new ReservationSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Reservation System!");
+
+        while (true) {
+            System.out.print("Username: ");
+            String username = scanner.nextLine();
+            System.out.print("Password: ");
+            String password = scanner.nextLine();
+
+            if (reservationSystem.login(username, password)) {
+                // User is logged in successfully, perform further actions here
+                // For simplicity, we are just breaking the loop here
+                break;
+            }
+        }
+
+        // Continue with the rest of the program after successful login
+        System.out.println("Reservation system menu options:");
+        System.out.println("1. Make a reservation");
+        System.out.println("2. Cancel a reservation");
+        System.out.println("3. Display reservations");
+        System.out.println("4. Exit");
+
+        // Perform further actions based on user input
+        // ...
+    }
+}
