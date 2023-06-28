@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Question {
+    private String questionText;
+    private List<String> options;
+    private int correctOptionIndex;
+
+    public Question(String questionText, List<String> options, int correctOptionIndex) {
+        this.questionText = questionText;
+        this.options = options;
+        this.correctOptionIndex = correctOptionIndex;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public int getCorrectOptionIndex() {
+        return correctOptionIndex;
+    }
+}
+
+class Exam {
+    private List<Question> questions;
+    private int score;
+
+    public Exam(List<Question> questions) {
+        this.questions = questions;
+        this.score = 0;
+    }
+
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+            System.out.println("Question " + (i + 1) + ": " + question.getQuestionText());
+
+            List<String> options = question.getOptions();
+            for (int j = 0; j < options.size(); j++) {
+                System.out.println((j + 1) + ". " + options.get(j));
+            }
+
+            System.out.print("Enter your answer (1-" + options.size() + "): ");
+            int userAnswer = scanner.nextInt();
+
+            if (userAnswer == question.getCorrectOptionIndex() + 1) {
+                System.out.println("Correct answer!");
+                score++;
+            } else {
+                System.out.println("Wrong answer!");
+            }
+
+            System.out.println();
+        }
+
+        System.out.println("Exam completed!");
+        System.out.println("Your score: " + score + "/" + questions.size());
+    }
+}
+
+public class OnlineExamination {
+    public static void main(String[] args) {
+        // Create sample questions
+        List<Question> questions = new ArrayList<>();
+        List<String> options1 = List.of("A. Option 1", "B. Option 2", "C. Option 3", "D. Option 4");
+        questions.add(new Question("What is the capital of France?", options1, 0));
+
+        List<String> options2 = List.of("A. Option 1", "B. Option 2", "C. Option 3", "D. Option 4");
+        questions.add(new Question("What is the largest planet in our solar system?", options2, 2));
+
+        // Create an exam with the questions
+        Exam exam = new Exam(questions);
+
+        // Start the exam
+        exam.start();
+    }
+}
