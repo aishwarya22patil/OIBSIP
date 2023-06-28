@@ -1,0 +1,73 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class ReservationSystem {
+    private Map<String, Boolean> reservations;
+
+    public ReservationSystem() {
+        reservations = new HashMap<>();
+    }
+
+    public void makeReservation(String name) {
+        if (reservations.containsKey(name)) {
+            System.out.println("Sorry, the reservation is already taken.");
+        } else {
+            reservations.put(name, true);
+            System.out.println("Reservation for " + name + " has been successfully made.");
+        }
+    }
+
+    public void cancelReservation(String name) {
+        if (reservations.containsKey(name)) {
+            reservations.remove(name);
+            System.out.println("Reservation for " + name + " has been canceled.");
+        } else {
+            System.out.println("No reservation found for " + name + ".");
+        }
+    }
+
+    public void displayReservations() {
+        System.out.println("Current reservations:");
+        for (String name : reservations.keySet()) {
+            System.out.println(name);
+        }
+    }
+
+    public static void main(String[] args) {
+        ReservationSystem reservationSystem = new ReservationSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1. Make a reservation");
+            System.out.println("2. Cancel a reservation");
+            System.out.println("3. Display reservations");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter name for reservation: ");
+                    String reservationName = scanner.nextLine();
+                    reservationSystem.makeReservation(reservationName);
+                    break;
+                case 2:
+                    System.out.print("Enter name for cancellation: ");
+                    String cancellationName = scanner.nextLine();
+                    reservationSystem.cancelReservation(cancellationName);
+                    break;
+                case 3:
+                    reservationSystem.displayReservations();
+                    break;
+                case 4:
+                    System.out.println("Exiting program.");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
