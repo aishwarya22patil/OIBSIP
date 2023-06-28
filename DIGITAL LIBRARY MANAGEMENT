@@ -1,0 +1,104 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Book {
+    private String title;
+    private String author;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+}
+
+class Library {
+    private ArrayList<Book> books;
+
+    public Library() {
+        books = new ArrayList<>();
+    }
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public ArrayList<Book> searchBooks(String keyword) {
+        ArrayList<Book> searchResults = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getTitle().contains(keyword) || book.getAuthor().contains(keyword)) {
+                searchResults.add(book);
+            }
+        }
+        return searchResults;
+    }
+
+    public void displayBooks() {
+        if (books.isEmpty()) {
+            System.out.println("No books in the library.");
+        } else {
+            System.out.println("Books in the library:");
+            for (Book book : books) {
+                System.out.println("Title: " + book.getTitle() + ", Author: " + book.getAuthor());
+            }
+        }
+    }
+}
+
+public class LibraryManagement {
+    public static void main(String[] args) {
+        Library library = new Library();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add Book");
+            System.out.println("2. Search Books");
+            System.out.println("3. Display Books");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice (1-4): ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the title of the book: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Enter the author of the book: ");
+                    String author = scanner.nextLine();
+                    Book book = new Book(title, author);
+                    library.addBook(book);
+                    System.out.println("Book added successfully!");
+                    break;
+                case 2:
+                    System.out.print("Enter a keyword to search for books: ");
+                    String keyword = scanner.nextLine();
+                    ArrayList<Book> searchResults = library.searchBooks(keyword);
+                    if (searchResults.isEmpty()) {
+                        System.out.println("No books found.");
+                    } else {
+                        System.out.println("Search results:");
+                        for (Book result : searchResults) {
+                            System.out.println("Title: " + result.getTitle() + ", Author: " + result.getAuthor());
+                        }
+                    }
+                    break;
+                case 3:
+                    library.displayBooks();
+                    break;
+                case 4:
+                    System.out.println("Exiting the program. Goodbye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
